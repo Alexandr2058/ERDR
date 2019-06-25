@@ -8,10 +8,7 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import pages.KrimProccedingsPage;
-import pages.KrimOffensePage;
-import pages.LoginPage;
-import pages.TemplatePage;
+import pages.*;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +22,7 @@ public class ParentTest {
     protected KrimProccedingsPage krimProccedingsPage;
     protected KrimOffensePage krimOffensePage;
     protected ActionsWithOurElements actionsWithOurElements;
+    protected CharacteristicsOfCriminalOffense characteristicsOfCriminalOffense;
 
     @Before
     public void setUp() {
@@ -57,6 +55,7 @@ public class ParentTest {
         krimProccedingsPage = new KrimProccedingsPage(webDriver);
         krimOffensePage = new KrimOffensePage(webDriver);
         actionsWithOurElements = new ActionsWithOurElements(webDriver);
+        characteristicsOfCriminalOffense = new  CharacteristicsOfCriminalOffense(webDriver);
 
 
 

@@ -1,9 +1,7 @@
 package kP;
 
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 //import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -15,12 +13,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 //import java.util.Set;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class kP {
@@ -30,6 +29,9 @@ public class kP {
 
     @FindBy(linkText = "Керівникодргпу Г.П.")
     private String value;
+
+    @FindBy (id = "zenlbl_104")
+    private WebElement element1;
 
     @Test
     public void addData() throws InterruptedException {
@@ -60,11 +62,11 @@ public class kP {
         wait20.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='a_5']")));
         Thread.sleep(1000);
         webDriver.findElement(By.xpath(".//*[@id='a_5']")).click(); //button krim provadj
-        webDriver.findElement(By.xpath(".//*[@id='a_22']")).click();// registration pravoporushennya
+        webDriver.findElement(By.xpath(".//*[@id='a_21']")).click();// registration pravoporushennya
 
         String parent = webDriver.getWindowHandle();
         System.out.println("Parent window is " + parent);
-        webDriver.findElement(By.xpath(".//*[@id='a_22']")).click();
+        webDriver.findElement(By.xpath(".//*[@id='a_21']")).click();
         Set<String> allWindows = webDriver.getWindowHandles();
         int count = allWindows.size();
         System.out.println("Total window " + count);
@@ -75,47 +77,144 @@ public class kP {
             }
         }
 
+        try {
+            Runtime.getRuntime().exec("C:\\Users\\achepik\\Desktop\\scroll.exe");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        wait10.until(ExpectedConditions.elementToBeClickable (By.xpath(".//*[@id='icon_44']")));
+        Thread.sleep(3000);
+        webDriver.findElement(By.xpath(".//*[@id='image_377']")).click();
+        System.out.println("click on a button");
 
-        webDriver.findElement(By.id("icon_44")).click();
 
-        String parent2 = webDriver.getWindowHandle();
-        System.out.println("Parent window is " + parent2);
-        webDriver.findElement(By.xpath(".//*[@id='zen411']")).click();
-        Set<String> allWindows2 = webDriver.getWindowHandles();
-        int count2 = allWindows2.size();
-        System.out.println("Total window " + count2);
-        for (String child : allWindows) {
-            if (!parent.equalsIgnoreCase(child)) {
-                webDriver.switchTo().window(child);
+
+//        String parent2 = webDriver.getWindowHandle();
+//        System.out.println("Parent window is " + parent2);
+//        webDriver.findElement(By.xpath("//*[@id='zenLayoutTableCell_14']")).click();
+//        Set<String> allWindows2 = webDriver.getWindowHandles();
+//        int count2 = allWindows2.size();
+//        System.out.println("Total window " + count2);
+//        for (String child : allWindows) {
+//            if (!parent.equalsIgnoreCase(child)) {
+//                webDriver.switchTo().window(child);
+//            }
+//        }
+
+//        Actions actions = new Actions(webDriver);
+//        WebElement element = webDriver.findElement(By.xpath("//*[@id='zenLayoutTableCell_14']"));
+//        actions.moveToElement(element).build().perform();
+
+
+
+        String currentWindow = webDriver.getWindowHandle();
+        for(String winHandle : webDriver.getWindowHandles()){
+            if(!winHandle.equals(currentWindow)){
+                webDriver.switchTo().window(winHandle);
+                System.out.println("current window " + currentWindow);
+                System.out.println("window " + winHandle);
+                try {
+                    webDriver.findElement(By.xpath(".//*[@id='tpHead_14']"));
+                    System.out.println("catch");
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        webDriver.findElement(By.id("filter1_column1_14")).sendKeys("СТ.368-2 Ч.3");
+        webDriver.findElement(By.id("filter1_column1_14")).sendKeys(Keys.ENTER);
+//        WebElement st = webDriver.findElement(By.xpath(".//*[text()='СТ.368-2 Ч.3']"));
+//        new Actions(webDriver).doubleClick(st).build().perform();
+
+
+        webDriver.findElement(By.xpath(".//*[@title='Вибрати виділений запис']")).click();
+
+        String currentWindow1 = webDriver.getWindowHandle();
+        for(String winHandle : webDriver.getWindowHandles()){
+            if(!winHandle.equals(currentWindow1)){
+                webDriver.switchTo().window(winHandle);
+                System.out.println("current window " + currentWindow1);
+                System.out.println("window " + winHandle);
+                try {
+                    webDriver.findElement(By.xpath(".//*[@id='group_6']"));
+                    System.out.println("catch");
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
 
-        webDriver.findElement(By.id("dtcomboCrimeClassification.ImageTlb")).click();
+        webDriver.findElement(By.id("zenLayoutTableCell_383")).click();
+//        webDriver.findElement(By.xpath(".//*[text()='СТ.368-2 Ч.3']")).click();
 
-        String parent3 = webDriver.getWindowHandle();
-        System.out.println("Parent window is " + parent3);
-        webDriver.findElement(By.xpath(".//*[@id='group_7']")).click();
-        Set<String> allWindows3 = webDriver.getWindowHandles();
-        int count3 = allWindows3.size();
-        System.out.println("Total window " + count3);
-        for (String child : allWindows) {
-            if (!parent.equalsIgnoreCase(child)) {
-                webDriver.switchTo().window(child);
+//        Thread.sleep(1000);
+//        Actions action = new Actions(webDriver);
+//        WebElement link = webDriver.findElement(By.xpath(".//*[text()='СТ.368-2 Ч.3']"));
+//        action.doubleClick(link).perform();
+//        Thread.sleep(3000);
+//        action.moveToElement(webDriver.findElement(By.xpath(".//*[@id='selector_0_14']"))).doubleClick().build().perform();
+
+
+//        WebElement st = webDriver.findElement(By.xpath(".//*[text()='СТ.368-2 Ч.3']"));
+//        System.out.println("find it");
+//        st.sendKeys(Keys.ENTER);
+
+        WebElement table = webDriver.findElement(By.xpath(".//*[@id='tbl']"));
+
+// Now get all the TR elements from the table
+        List<WebElement> allRows = table.findElements(By.tagName("tr"));
+// And iterate over them, getting the cells
+        for (WebElement row : allRows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            for (WebElement cell : cells) {
+                System.out.println("content >>   " + cell.getText());
             }
         }
 
-        Thread.sleep(1000);
-        wait10.until(ExpectedConditions.elementToBeClickable(By.id("filter1_column1_14")));
+
+//        ArrayList<String> myArrayList = new ArrayList<String>();
+//        for (int i = 0; i < myArrayList.size(); i++)
+//            System.out.println(myArrayList.get(i));
+
+//            try {
+//            Runtime.getRuntime().exec("C:\\Users\\achepik\\Desktop\\clickOn.exe");
+//        }catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        LocalDateTime currentTimeUtc = LocalDateTime.now(Clock.systemUTC()).minusMinutes(30);
+//
+//
+//
+//
+//        webDriver.findElement(By.id("dtcomboCrimeClassification.ImageTlb")).click();
+//
+//        String parent3 = webDriver.getWindowHandle();
+//        System.out.println("Parent window is " + parent3);
+//        webDriver.findElement(By.xpath(".//*[@id='group_7']")).click();
+//        Set<String> allWindows3 = webDriver.getWindowHandles();
+//        int count3 = allWindows3.size();
+//        System.out.println("Total window " + count3);
+//        for (String child : allWindows) {
+//            if (!parent.equalsIgnoreCase(child)) {
+//                webDriver.switchTo().window(child);
+//            }
+//        }
+//
+//        Thread.sleep(1000);
+//        wait10.until(ExpectedConditions.elementToBeClickable(By.id("filter1_column1_14")));
+//
+//
+//try {
+//    webDriver.findElement(By.id("filter1_column1_14")).sendKeys("СТ.368-2 Ч.1");
+//}catch (Exception e) {
+//    e.printStackTrace();
 
 
-try {
-    webDriver.findElement(By.id("filter1_column1_14")).sendKeys("СТ.368-2 Ч.1");
-}catch (Exception e) {
-    e.printStackTrace();
-}
+
+//}
 
 //        webDriver.findElement(By.id("control_19")).click();
 //        Actions action = new Actions(webDriver);
