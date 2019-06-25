@@ -13,19 +13,7 @@ public class KrimProccedingsPage extends ParentPage{
 
     public void openNewRegKP() {
 
-        actionsWithOurElements.chooseNewWindow(".//*[@id='a_22']");
-//        String parent = webDriver.getWindowHandle();
-//        logger.info("Parent window is " + parent);
-//        webDriver.findElement(By.xpath(".//*[@id='a_22']")).click();
-//        Set<String> allWindows = webDriver.getWindowHandles();
-//        int count = allWindows.size();
-//        logger.info("Total window " + count);
-//        for (String child:allWindows) {
-//            if (!parent.equalsIgnoreCase(child)) {
-//                webDriver.switchTo().window(child);
-////                webDriver.findElement(By.id("btn_27")).click();btn_1_16
-//            }
-//        }
-
-    }//opening a window to create a new criminal proceeding
+        actionsWithOurElements.chooseNewWindow(".//*[@id='a_21']");//opening a window to create a new criminal proceeding
+    }
 }
+

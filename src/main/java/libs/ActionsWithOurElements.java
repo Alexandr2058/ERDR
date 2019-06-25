@@ -1,19 +1,24 @@
 package libs;
 
+
+
 import org.apache.log4j.Logger;
+//import org.apache.xpath.operations.String;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+
 
 public class ActionsWithOurElements {
     WebDriver webDriver;
@@ -122,15 +127,12 @@ public class ActionsWithOurElements {
     }
 
     public void enterDate() {
-        DateFormat dateFormat2 = new SimpleDateFormat("dd");
+        DateFormat dateFormat2 = new SimpleDateFormat("d");
         Date date2 = new Date();
-
         String today = dateFormat2.format(date2);
-
         //find the calendar
-        WebElement dateWidget = webDriver.findElement(By.id("calendarDiv_411"));
+        WebElement dateWidget = webDriver.findElement(By.id("calendarDiv_411"));//calendarDiv_411
         List<WebElement> columns = dateWidget.findElements(By.tagName("td"));
-
 
 //        comparing the text of cell with today date and clicking it.
         for (WebElement cell : columns) {
@@ -138,9 +140,58 @@ public class ActionsWithOurElements {
                 cell.click();
                 break;
             }
-
         }
     }
 
+    public void sendKey (WebElement element) {
+        try {
+            element.sendKeys(Keys.DOWN);
+            logger.info("element was up");
+        }catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+
+    }
+
+    public void scroll() {
+
+//        JavascriptExecutor jse = (JavascriptExecutor) webDriver;
+//        jse.executeScript("window.scrollBy(0,innerHeight)");
+
+        try {
+            Runtime.getRuntime().exec("C:\\Users\\achepik\\Desktop\\scroll.exe");//for chrome open1.exe
+            logger.info("AutoIT Script Started");
+        }catch (Exception e) {
+            logger.error("AutoIt Unvalid");
+                e.printStackTrace();
+        }
+    }
+
+    public void windowSearch (String locator) {
+        String currentWindow = webDriver.getWindowHandle();
+        for(String winHandle : webDriver.getWindowHandles()){
+            if(!winHandle.equals(currentWindow)){
+                webDriver.switchTo().window(winHandle);
+                System.out.println("current window " + currentWindow);
+                System.out.println("window " + winHandle);
+                try {
+                    webDriver.findElement(By.xpath(locator));
+                    System.out.println("catch");
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static final int nameOfTheIndividual = 6;
+    public static String getRandomName() {
+        String s = "абвгдежзиклмнопрстуфхцчшщєюя";
+        StringBuffer phoneNumber = new StringBuffer();
+        for (int i = 0; i < nameOfTheIndividual; i++) {
+            phoneNumber.append(s.charAt(new Random().nextInt(s.length())));
+        }
+        return phoneNumber.toString();
+    }
 
 }

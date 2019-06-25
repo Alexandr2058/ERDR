@@ -6,7 +6,7 @@ import parentTest.ParentTest;
 public class KrimProvPage extends ParentTest {
 
     @Test
-    public void registrKrimProv() {
+    public void registrKrimProv()  {
 //        loginPage.openPage();//I use it in ParentTest(before), and we have method in loginPage.
         templatePage.krimProvTab();
         krimProccedingsPage.openNewRegKP();
@@ -27,6 +27,10 @@ public class KrimProvPage extends ParentTest {
         krimOffensePage.chooseArea();
         krimOffensePage.environmentalOffenses();
         krimOffensePage.offenseATO();
+        krimOffensePage.tortureOfPersons();
+        krimOffensePage.switchToTabFeaturePP();
+        characteristicsOfCriminalOffense.placeOfCommissionPfOffense();
+        krimOffensePage.save();
 
 
 
