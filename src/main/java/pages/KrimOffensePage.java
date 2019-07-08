@@ -133,6 +133,15 @@ public class KrimOffensePage extends ParentPage {
     @FindBy (id = "popup_container")
     private String dialog;
 
+    @FindBy (id = "item_0_100")
+    private String ecoWindow;
+
+    @FindBy (id = "icon_44")
+    private WebElement calendars;
+
+    @FindBy (id = "btn_1_19")
+    private WebElement unreg;
+
     public KrimOffensePage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -151,7 +160,9 @@ public class KrimOffensePage extends ParentPage {
     public void selectKerOP() {
 
         try {
-            webDriver.findElement(By.id("zenlbl_22")).click();
+            Thread.sleep(2000);
+//            actionsWithOurElements.windowSearch(".//*[@id='btn_1_16']");
+            webDriver.findElement(By.id("control_42")).click();
             actionsWithOurElements.selectDataInDD(".//*[@id='btn_29']");
             actionsWithOurElements.selectDataInDD(".//*[@id='chbox_0_29']");
             logger.info("kerOP was selected");
@@ -167,8 +178,8 @@ public class KrimOffensePage extends ParentPage {
 
     public void enterDate() {
 
-        actionsWithOurElements.clickOnElement(dateOfReceipt);
         try {
+            actionsWithOurElements.clickOnElement(calendars);
             actionsWithOurElements.enterDate();
             logger.info("Date of receipt of the application was added");
         }catch (Exception e) {
@@ -274,9 +285,11 @@ public class KrimOffensePage extends ParentPage {
     public void environmentalOffenses() {
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
             actionsWithOurElements.clickOnElement(okno);
             webDriver.findElement(By.xpath(".//*[@id='btn_100']")).click();
+            Thread.sleep(1000);
+//            actionsWithOurElements.chooseNewWindow(ecoWindow);
             actionsWithOurElements.clickOnElement(envOffence);
             logger.info("offenses was added");
         }catch (Exception e) {
@@ -318,27 +331,14 @@ public class KrimOffensePage extends ParentPage {
     }
 
     public void save() {
-
-
-
         actionsWithOurElements.clickOnElement(saveProv);
-//        try {
-//            Runtime.getRuntime().exec("C:\\Users\\achepik\\Desktop\\end.exe");//for chrome open1.exe
-//            logger.info("AutoIT Script Started");
-//        }catch (Exception e) {
-//            logger.error("AutoIt Unvalid");
-////                e.printStackTrace();
-//        }
-
-//        actionsWithOurElements.windowSearch(dialog);
         try {
-//            Thread.sleep(1000);
             actionsWithOurElements.clickOnElement(Ok);
-            logger.info("khftjfh");
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        actionsWithOurElements.chooseNewWindow(table);
+        webDriver.switchTo().activeElement().equals(webDriver.findElement(By.id("table")));
+        actionsWithOurElements.clickOnElement(unreg);
     }
 }
 
