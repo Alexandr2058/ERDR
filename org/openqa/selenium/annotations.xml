@@ -1,0 +1,6 @@
+<root>
+    <item name='org.openqa.selenium.WebElement void sendKeys(java.lang.CharSequence...)'>
+        <annotation name='java.lang.Deprecated'/>
+        <annotation name='org.jetbrains.annotations.NonBlocking'/>
+    </item>
+</root>
