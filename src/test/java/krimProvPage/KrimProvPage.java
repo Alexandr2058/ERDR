@@ -34,7 +34,7 @@ public class KrimProvPage extends ParentTest {
 
 
 
-//        checkExpectedResult("Avatar is not present", loginPage.isAvatarPresent());
+        checkExpectedResult("Avatar is present", unregisteredCriminalOffenses.isAvatarPresent());
 
     }// crime-2001, the applicant is an individual, status - project
 }

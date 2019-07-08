@@ -23,6 +23,7 @@ public class ParentTest {
     protected KrimOffensePage krimOffensePage;
     protected ActionsWithOurElements actionsWithOurElements;
     protected CharacteristicsOfCriminalOffense characteristicsOfCriminalOffense;
+    protected UnregisteredCriminalOffenses unregisteredCriminalOffenses;
 
     @Before
     public void setUp() {
@@ -56,6 +57,7 @@ public class ParentTest {
         krimOffensePage = new KrimOffensePage(webDriver);
         actionsWithOurElements = new ActionsWithOurElements(webDriver);
         characteristicsOfCriminalOffense = new  CharacteristicsOfCriminalOffense(webDriver);
+        unregisteredCriminalOffenses = new UnregisteredCriminalOffenses(webDriver);
 
 
 

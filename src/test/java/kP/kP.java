@@ -36,8 +36,8 @@ public class kP {
     @Test
     public void addData() throws InterruptedException {
 
-        File file = new File("./src/drivers/geckodriver.exe");
-        System.setProperty("webdriver.gecko.driver", file.getAbsolutePath());
+//        File file = new File("./src/drivers/geckodriver.exe");
+//        System.setProperty("webdriver.gecko.driver", file.getAbsolutePath());
 
         WebDriver webDriver = new FirefoxDriver();
         WebDriverWait wait20, wait10;

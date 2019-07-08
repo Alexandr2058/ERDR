@@ -194,4 +194,28 @@ public class ActionsWithOurElements {
         return phoneNumber.toString();
     }
 
+    public boolean equalsTime() {
+        try {
+            DateFormat dateFormat3 = new SimpleDateFormat("d");
+            Date date3 = new Date();
+            String today = dateFormat3.format(date3);
+            //find the calendar
+            WebElement dateWidget = webDriver.findElement(By.id("tr_0_38"));//calendarDiv_411
+            System.out.println(dateWidget);
+            List<WebElement> columns = dateWidget.findElements(By.tagName("td"));
+
+
+//        comparing the text of cell with today date and clicking it.
+            for (WebElement cell : columns) {
+                if (cell.getText().equals(today)) {
+                    logger.info("" + cell.getText());
+                    break;
+                }
+            }
+        }catch (Exception e) {
+            logger.info("Offenses is not added");
+         return false;
+        }
+        return true;
+    }
 }
