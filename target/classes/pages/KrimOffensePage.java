@@ -142,6 +142,24 @@ public class KrimOffensePage extends ParentPage {
     @FindBy (id = "btn_1_19")
     private WebElement unreg;
 
+    @FindBy (id = "btn_96")
+    private WebElement buttPlur;
+
+    @FindBy (id = "zenModalDiv")
+    private String qualPlur;
+
+    @FindBy (id = "item_0_96")
+    private WebElement qualPlurCrim;
+
+    @FindBy (id = "zenlbl_100")
+    private WebElement wind;
+
+    @FindBy (id = "btn_3_16")
+    private WebElement victim;
+
+    @FindBy (id = "control_366")
+    private String exitTub;
+
     public KrimOffensePage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -258,18 +276,30 @@ public class KrimOffensePage extends ParentPage {
         logger.info("story was entered");
     }
 
-    public void qualificationCrime() {
+    public void qualificationCrime(String article) {
         actionsWithOurElements.clickOnElement(buttonOfQual);
         actionsWithOurElements.windowSearch(qualificationOfaCrime);
         try {
             Thread.sleep(3000);
-            actionsWithOurElements.enterTextIntoElement(numQual, "СТ.124");
+            actionsWithOurElements.enterTextIntoElement(numQual, article);
             webDriver.findElement(By.id("filter1_column1_14")).sendKeys(Keys.ENTER);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         actionsWithOurElements.clickOnElement(choose);
         actionsWithOurElements.windowSearch(window);
+    }
+
+    public void pluralQualCrime() {
+        actionsWithOurElements.clickOnElement(buttPlur);
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.clickOnElement(qualPlurCrim);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+//        actionsWithOurElements.windowSearch(window);
+        actionsWithOurElements.clickOnElement(buttPlur);
     }
 
     public void chooseArea() {
@@ -324,21 +354,30 @@ public class KrimOffensePage extends ParentPage {
        try {
            Thread.sleep(1000);
            actionsWithOurElements.clickOnElement(featurePP);
-           logger.info("tab was opened");
+           logger.info("tab Characteristics Of Criminal Offense was opened");
        }catch (Exception e) {
            e.printStackTrace();
        }
     }
 
     public void save() {
+        actionsWithOurElements.windowSearchs(exitTub);
         actionsWithOurElements.clickOnElement(saveProv);
         try {
             actionsWithOurElements.clickOnElement(Ok);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        webDriver.switchTo().activeElement().equals(webDriver.findElement(By.id("table")));
-        actionsWithOurElements.clickOnElement(unreg);
+    }
+
+    public void switchToTabVictim() {
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.clickOnElement(victim);
+            logger.info("tab victim was opened");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

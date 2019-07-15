@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 //import org.apache.xpath.operations.String;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,10 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 
 public class ActionsWithOurElements {
@@ -33,6 +31,7 @@ public class ActionsWithOurElements {
 
     public void enterTextIntoElement(WebElement element, String text) {
         try {
+            wait10.until(ExpectedConditions.elementToBeClickable(element));
             element.clear();
             element.sendKeys(text);
             logger.info(text + " was input into element");
@@ -196,13 +195,16 @@ public class ActionsWithOurElements {
 
     public boolean equalsTime() {
         try {
-            DateFormat dateFormat3 = new SimpleDateFormat("d");
+            DateFormat dateFormat3 = new SimpleDateFormat("dd.MM.YYYY HH:MM");
+        System.out.println(dateFormat3);
             Date date3 = new Date();
+        System.out.println(date3);
             String today = dateFormat3.format(date3);
+        System.out.println(today);
             //find the calendar
-            WebElement dateWidget = webDriver.findElement(By.id("tr_0_38"));//calendarDiv_411
-            System.out.println(dateWidget);
+            WebElement dateWidget = webDriver.findElement(By.id("tr_0_38"));
             List<WebElement> columns = dateWidget.findElements(By.tagName("td"));
+            System.out.println(columns);
 
 
 //        comparing the text of cell with today date and clicking it.
@@ -211,11 +213,107 @@ public class ActionsWithOurElements {
                     logger.info("" + cell.getText());
                     break;
                 }
-            }
+            } return true;
         }catch (Exception e) {
             logger.info("Offenses is not added");
          return false;
+//        }
+    }
+}
+
+    public void dOM(String windowH) {
+        Set<String> windows = webDriver.getWindowHandles();
+        String parent = null;
+        String child = null;
+        Iterator<String> it = windows.iterator();
+        while(it.hasNext()) {
+            parent = (String) it.next();
+            child = (String) it.next();
         }
-        return true;
+//        webDriver.switchTo().window(child);
+//        driver.findElement(By.xpath("//div[@id='x-auto-32__x-auto-32_x-auto-137']/img[2]")).click();Thread.sleep(1000);
+//        driver.findElement(By.xpath("//div[@id='x-auto-32__x-auto-32_x-auto-141']/span[2]")).click();Thread.sleep(1000);
+//        driver.findElement(By.cssSelector("div.x-grid3-cell-inner.x-grid3-col-runStatus")).click();Thread.sleep(1000);
+//        driver.findElement(By.xpath("//div[@id='x-auto-36']")).click();Thread.sleep(1000);
+//        driver.findElement(By.xpath("(//button[@type='button'])[11]")).click();Thread.sleep(1000);
+//
+//        driver.findElement(By.id("mainForm:addinterface")).click();
+//        driver.close();
+        // till this part working fine.
+        webDriver.switchTo().window(parent); // Here failing to focus on parent window and stopped to perform actions on parent window.
+        webDriver.findElement(By.id(windowH)).click();
+//        System.out.println("Get URL"+ webDriver.getCurrentUrl());
+//        System.out.println("Get Window Title"+ webDriver.getWindowHandle());
+//        System.out.println("Get URL"+ webDriver.getPageSource());
+
+    }
+
+    public void windowSearchs(String windowH) {
+
+        Set<String> windows = webDriver.getWindowHandles();
+        String parent = null;
+        String child = null;
+        Iterator<String> it = windows.iterator();
+        while(it.hasNext()) {
+            parent = (String) it.next();
+            child = (String) it.next();
+        }
+        webDriver.switchTo().window(child);
+        try {
+            webDriver.findElement(By.id(windowH)).click();
+            logger.info("wot ono");
+        }catch (Exception e) {
+            e.printStackTrace();
+            logger.info("mimo");
+        }
+    }
+
+    public void windowSearchThre(String windowT) {
+
+        Set<String> windows = webDriver.getWindowHandles();
+        String parent = null;
+        String childOne = null;
+        String childTwo =null;
+        Iterator<String> it = windows.iterator();
+        while(it.hasNext()) {
+            parent = (String) it.next();
+            childOne = (String) it.next();
+            childTwo = (String) it.next();
+        }
+        for (String winHandle : webDriver.getWindowHandles()) {
+            if (!winHandle.equals(childOne)) {
+                webDriver.switchTo().window(childOne);
+            }
+        }
+
+        try {
+            webDriver.findElement(By.id(windowT)).click();
+            logger.info("wot ono");
+        }catch (Exception e) {
+            e.printStackTrace();
+            logger.info("mimo");
+        }
+
+        for (String winHandle : webDriver.getWindowHandles()) {
+            if (!winHandle.equals(childTwo)) {
+                webDriver.switchTo().window(childTwo);
+            }
+        }
+        try {
+            webDriver.findElement(By.id(windowT)).click();
+            logger.info("wot ono");
+        }catch (Exception e) {
+            e.printStackTrace();
+            logger.info("mimo");
+        }
+    }
+
+    public void downEnter() {
+        try {
+            Thread.sleep(2000);
+            webDriver.findElement(By.id("zenModalDiv")).sendKeys(Keys.DOWN, Keys.ENTER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

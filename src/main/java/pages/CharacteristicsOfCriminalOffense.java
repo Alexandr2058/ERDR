@@ -27,6 +27,21 @@ public class CharacteristicsOfCriminalOffense extends ParentPage{
     @FindBy (id = "input_399")
     private WebElement city;
 
+    @FindBy (id = "filter1_code_14")
+    private WebElement code;
+
+    @FindBy (id = "control_224")
+    private WebElement butMark;
+
+    @FindBy (id = "th_code_14")
+    private String windowMark;
+
+    @FindBy (xpath = ".//*[@title='Вибрати виділений запис']")
+    private WebElement chooseAddMark;
+
+    @FindBy (id = "zen107")
+    private String windowH;
+
     public CharacteristicsOfCriminalOffense(WebDriver webDriver) {
         super(webDriver);
     }
@@ -41,5 +56,19 @@ public class CharacteristicsOfCriminalOffense extends ParentPage{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void additionalQualificationMarkings(String article) {
+        actionsWithOurElements.clickOnElement(butMark);
+        actionsWithOurElements.windowSearch(windowMark);
+        try {
+            Thread.sleep(3000);
+            actionsWithOurElements.enterTextIntoElement(code, article);
+            webDriver.findElement(By.id("filter1_code_14")).sendKeys(Keys.ENTER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        actionsWithOurElements.clickOnElement(chooseAddMark);
+        actionsWithOurElements.windowSearchs(windowH);
     }
 }

@@ -24,6 +24,7 @@ public class ParentTest {
     protected ActionsWithOurElements actionsWithOurElements;
     protected CharacteristicsOfCriminalOffense characteristicsOfCriminalOffense;
     protected UnregisteredCriminalOffenses unregisteredCriminalOffenses;
+    protected Victims victims;
 
     @Before
     public void setUp() {
@@ -58,9 +59,7 @@ public class ParentTest {
         actionsWithOurElements = new ActionsWithOurElements(webDriver);
         characteristicsOfCriminalOffense = new  CharacteristicsOfCriminalOffense(webDriver);
         unregisteredCriminalOffenses = new UnregisteredCriminalOffenses(webDriver);
-
-
-
+        victims = new Victims(webDriver);
     }
 
     @After
