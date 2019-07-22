@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +17,7 @@ public class UnregisteredCriminalOffenses  extends ParentPage{
         super(webDriver);
     }
 
+    @Step
     public void goToDom(String pageId) {
 
         Set<String> windows = webDriver.getWindowHandles();
@@ -42,13 +44,5 @@ public class UnregisteredCriminalOffenses  extends ParentPage{
 //        System.out.println("Get Window Title"+ webDriver.getWindowHandle());
 //        System.out.println("Get URL"+ webDriver.getPageSource());
 
-    }
-
-    public boolean isAvatarPresent() {
-
-//        actionsWithOurElements.clickOnElement(unreg);
-//        webDriver.findElement(By.id("tr_0_38"));
-
-        return actionsWithOurElements.equalsTime();
     }
 }

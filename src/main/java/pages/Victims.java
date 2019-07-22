@@ -72,26 +72,28 @@ public class Victims extends ParentPage {
         actionsWithOurElements.enterTextIntoElement(deadArea, numbDead);
     }
 
-    public void chooseCountryOfCitizenship() {
+    public void chooseCountryOfCitizenship(String country, String number) {
         actionsWithOurElements.clickOnElement(countryOfSitBut);
         actionsWithOurElements.windowSearch(countryArea);
-//        actionsWithOurElements.clickOnElement(openTab);
-//        actionsWithOurElements.windowSearch(codeOfCounry);
-        actionsWithOurElements.enterTextIntoElement(nameOfCounry, "Україна");
+        actionsWithOurElements.enterTextIntoElement(nameOfCounry, country);
         actionsWithOurElements.downEnter();
-//        actionsWithOurElements.windowSearchThre(countryArea);
-        actionsWithOurElements.enterTextIntoElement(sum, "3");
+        actionsWithOurElements.enterTextIntoElement(sum, number);
         actionsWithOurElements.clickOnElement(save);
     }
 
-    public void officialPosition() {
+    public void officialPosition(String workSpace, String allVict, String victWhoDied) {
         actionsWithOurElements.windowSearchs(wind);
         actionsWithOurElements.clickOnElement(officPos);
         actionsWithOurElements.windowSearch(positBut);
-        actionsWithOurElements.enterTextIntoElement(positArea, "018 учитель");
-        actionsWithOurElements.downEnter();
-        actionsWithOurElements.enterTextIntoElement(all,"3");
-        actionsWithOurElements.enterTextIntoElement(ofThemDied, "3");
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.enterTextIntoElement(positArea, workSpace);
+            actionsWithOurElements.downEnter();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        actionsWithOurElements.enterTextIntoElement(all,allVict);
+        actionsWithOurElements.enterTextIntoElement(ofThemDied, victWhoDied);
         actionsWithOurElements.clickOnElement(saveBut);
     }
 }

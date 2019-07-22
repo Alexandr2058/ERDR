@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -46,6 +47,7 @@ public class CharacteristicsOfCriminalOffense extends ParentPage{
         super(webDriver);
     }
 
+    @Step
     public void placeOfCommissionPfOffense() {
 
         try {
@@ -58,6 +60,7 @@ public class CharacteristicsOfCriminalOffense extends ParentPage{
         }
     }
 
+    @Step
     public void additionalQualificationMarkings(String article) {
         actionsWithOurElements.clickOnElement(butMark);
         actionsWithOurElements.windowSearch(windowMark);

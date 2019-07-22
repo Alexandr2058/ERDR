@@ -1,7 +1,9 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.ActionsWithOurElements;
 import libs.Utils;
+import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -160,10 +162,38 @@ public class KrimOffensePage extends ParentPage {
     @FindBy (id = "control_366")
     private String exitTub;
 
+    @FindBy (id = "control_362")
+    private WebElement sendingReg;
+
+    @FindBy (id = "textRadio_2_90")
+    private WebElement changeCrimeY;
+
+    @FindBy (id = "btn_32")
+    private WebElement butInto;
+
+    @FindBy (id = "item_2_32")
+    private WebElement pastYear;
+
+    @FindBy (id = "control_35")
+    private WebElement numOfCase;
+
+    @FindBy (id = "control_37")
+    private WebElement calendarCS;
+
+    @FindBy (id = "input_32")
+    private String intoArea;
+
+    @FindBy (id = "btn_29")
+    private WebElement butKerOP;
+
+    @FindBy (id = "control_44")
+    private WebElement pastDateArea;
+
     public KrimOffensePage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Step
     public void selectKRODRInDD () {
         try {
             Thread.sleep(1000);
@@ -175,6 +205,7 @@ public class KrimOffensePage extends ParentPage {
         }
     }
 
+    @Step
     public void selectKerOP() {
 
         try {
@@ -189,11 +220,13 @@ public class KrimOffensePage extends ParentPage {
         }
     }
 
+    @Step
     public void enterNumStatement() {
         actionsWithOurElements.enterTextIntoElement(statement, "1" + Utils.getDateAndTime("HH:mm:ss"));
         logger.info("number of a statement was added");
     }
 
+    @Step
     public void enterDate() {
 
         try {
@@ -203,9 +236,9 @@ public class KrimOffensePage extends ParentPage {
         }catch (Exception e) {
             e.printStackTrace();
         }
-
     }//Date of receipt of the application
 
+    @Step
     public void enterLastName() {
         try {
             Thread.sleep(1000);
@@ -217,16 +250,19 @@ public class KrimOffensePage extends ParentPage {
 
     }
 
+    @Step
     public void enterName() {
         actionsWithOurElements.enterTextIntoElement(name, ActionsWithOurElements.getRandomName());
         logger.info("name was added");
     }
 
+    @Step
     public void patronymic() {
         actionsWithOurElements.enterTextIntoElement(patronymic, "иванович");
         logger.info("patronymic was added");
     }
 
+    @Step
     public void selectGender() {
 
         try {
@@ -240,30 +276,32 @@ public class KrimOffensePage extends ParentPage {
 
     }
 
+    @Step
     public void selectDataOfBirth() {
         actionsWithOurElements.enterTextIntoElement(birthDay, "01.05.1980");
         logger.info("Data of birth was selected");
 
     }
 
+    @Step
     public void enterAdress() {
         actionsWithOurElements.enterTextIntoElement(adress, "Празька");
         logger.info("adress was added");
     }
 
+    @Step
     public void offense() {
-        actionsWithOurElements.enterTextIntoElement(dataOffense, "01.05.2019 01:00:00");
+        actionsWithOurElements.enterTextIntoElement(dataOffense, "01.05.2000 01:00:00");
         logger.info("offense was entered");
     }
 
+    @Step
     public void personWhoCriminal()  {
-
         actionsWithOurElements.scroll();
-
         try {
             Thread.sleep(3000);
             webDriver.findElement(By.id("btn_85")).click();
-            logger.info("button was clicked");
+//            logger.info("button was clicked");
             actionsWithOurElements.clickOnElement(osoba);
             logger.info("person was selected");
         } catch (Exception e) {
@@ -271,11 +309,13 @@ public class KrimOffensePage extends ParentPage {
         }
     }
 
+    @Step
     public void enterStory() {
         actionsWithOurElements.enterTextIntoElement(story, "фабула " + Utils.getDateAndTime("HH:mm"));
         logger.info("story was entered");
     }
 
+    @Step
     public void qualificationCrime(String article) {
         actionsWithOurElements.clickOnElement(buttonOfQual);
         actionsWithOurElements.windowSearch(qualificationOfaCrime);
@@ -290,6 +330,7 @@ public class KrimOffensePage extends ParentPage {
         actionsWithOurElements.windowSearch(window);
     }
 
+    @Step
     public void pluralQualCrime() {
         actionsWithOurElements.clickOnElement(buttPlur);
         try {
@@ -302,6 +343,7 @@ public class KrimOffensePage extends ParentPage {
         actionsWithOurElements.clickOnElement(buttPlur);
     }
 
+    @Step
     public void chooseArea() {
 //        actionsWithOurElements.chooseNewWindow(window);
         actionsWithOurElements.clickOnElement(buttonArea);
@@ -312,6 +354,7 @@ public class KrimOffensePage extends ParentPage {
         actionsWithOurElements.windowSearch(window);
     }
 
+    @Step
     public void environmentalOffenses() {
 
         try {
@@ -328,6 +371,7 @@ public class KrimOffensePage extends ParentPage {
 
     }
 
+    @Step
     public void offenseATO() {
         try {
             webDriver.findElement(By.xpath(".//*[@id='btn_102']")).click();
@@ -339,6 +383,7 @@ public class KrimOffensePage extends ParentPage {
 
     }
 
+    @Step
     public void tortureOfPersons() {
         try {
             actionsWithOurElements.clickOnElement(tort);
@@ -350,6 +395,7 @@ public class KrimOffensePage extends ParentPage {
 
     }
 
+    @Step
     public void switchToTabFeaturePP() {
        try {
            Thread.sleep(1000);
@@ -360,16 +406,18 @@ public class KrimOffensePage extends ParentPage {
        }
     }
 
+    @Step
     public void save() {
         actionsWithOurElements.windowSearchs(exitTub);
         actionsWithOurElements.clickOnElement(saveProv);
-        try {
-            actionsWithOurElements.clickOnElement(Ok);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            actionsWithOurElements.clickOnElement(Ok);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
+    @Step
     public void switchToTabVictim() {
         try {
             Thread.sleep(1000);
@@ -378,6 +426,46 @@ public class KrimOffensePage extends ParentPage {
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Step
+    public void sendToReg() {
+        actionsWithOurElements.windowSearchs(exitTub);
+        actionsWithOurElements.clickOnElement(sendingReg);
+        try {
+            actionsWithOurElements.clickOnElement(Ok);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void crim1960() {
+        actionsWithOurElements.clickOnElement(changeCrimeY);
+    }
+
+    @Step
+    public void takeIntoAccount() {
+        actionsWithOurElements.clickOnElement(butKerOP);
+//        actionsWithOurElements.windowSearch(intoArea);
+        actionsWithOurElements.clickOnElement(butInto);
+        actionsWithOurElements.clickOnElement(pastYear);
+
+    }
+
+    @Step
+    public void numberOfCriminalCase() {
+        actionsWithOurElements.enterTextIntoElement(numOfCase, "2" + Utils.getDateAndTime("HH:mm"));
+    }
+
+    @Step
+    public void dateOfInitiationOfCriminalCase() {
+        actionsWithOurElements.enterTextIntoElement(calendarCS, "01.07.2000");
+    }
+
+    @Step
+    public void enterDatePast() {
+        actionsWithOurElements.enterTextIntoElement(pastDateArea, "01.06.2000");
     }
 }
 

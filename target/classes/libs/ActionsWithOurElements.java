@@ -196,30 +196,33 @@ public class ActionsWithOurElements {
     public boolean equalsTime() {
         try {
             DateFormat dateFormat3 = new SimpleDateFormat("dd.MM.YYYY HH:MM");
-        System.out.println(dateFormat3);
             Date date3 = new Date();
-        System.out.println(date3);
+            System.out.println(date3);
             String today = dateFormat3.format(date3);
-        System.out.println(today);
-            //find the calendar
-            WebElement dateWidget = webDriver.findElement(By.id("tr_0_38"));
-            List<WebElement> columns = dateWidget.findElements(By.tagName("td"));
-            System.out.println(columns);
-
-
-//        comparing the text of cell with today date and clicking it.
-            for (WebElement cell : columns) {
-                if (cell.getText().equals(today)) {
-                    logger.info("" + cell.getText());
-                    break;
+            System.out.println(today);
+//            WebElement dateWidget = webDriver.findElement(By.id("tr_0_38"));
+//            List<WebElement> columns = dateWidget.findElements(By.xpath("/html/body/div[4]/table/tbody/tr[3]/td/div/table/tbody/tr/td[2]/div/table/tbody/tr[2]/td/div/table/tbody/tr[1]/td[3]"));
+            String column = webDriver.findElement(By.id("tr_0_38")).getText();
+            System.out.println(column);
+//            for (WebElement cell : column) {
+                if (column.equals(today)) {
+//                    logger.info("" + cell.getText());
+                    return true;
                 }
-            } return true;
+//            }
+            return false;
         }catch (Exception e) {
-            logger.info("Offenses is not added");
-         return false;
+            Assert.fail("Offenses is not added");
+            return false;
 //        }
+        }
     }
-}
+
+    public void getIntFromString () {
+        String str = "stringa";
+        String numberOnly= str.replaceAll("[^0-9.]", "");
+        System.out.println(numberOnly);
+    }
 
     public void dOM(String windowH) {
         Set<String> windows = webDriver.getWindowHandles();
@@ -314,6 +317,24 @@ public class ActionsWithOurElements {
             webDriver.findElement(By.id("zenModalDiv")).sendKeys(Keys.DOWN, Keys.ENTER);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean compareWithDialogBox(String popupPass, String message) {
+        try {
+            String dialogBox = webDriver.findElement(By.id(popupPass)).getText();
+            System.out.println(dialogBox);
+//            for (WebElement cell : column) {
+            if (dialogBox.equals(message)) {
+//                    logger.info("" + cell.getText());
+                return true;
+            }
+//            }
+            return false;
+        }catch (Exception e) {
+            Assert.fail("Offenses is not added");
+            return false;
+//        }
         }
     }
 }
