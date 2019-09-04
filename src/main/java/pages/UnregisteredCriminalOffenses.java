@@ -45,4 +45,14 @@ public class UnregisteredCriminalOffenses  extends ParentPage{
 //        System.out.println("Get URL"+ webDriver.getPageSource());
 
     }
+
+    @Step
+    public void chooseKP() {
+        try {
+            Thread.sleep(2000);
+            actionsWithOurElements.chooseOffense("tpBody_38","Проект");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -16,6 +16,18 @@ public class KrimProccedingsPage extends ParentPage{
     @FindBy (id = "a_23")
     private WebElement unregisteredOfenses;
 
+    @FindBy (id = "a_21")
+    private WebElement regKP;
+
+    @FindBy (id = "a_21")
+    private String regKPs;
+
+    @FindBy (id = "a_23")
+    private WebElement unregisteredOfensesS;
+
+    @FindBy (id = "a_22")
+    private WebElement listKP;
+
     public KrimProccedingsPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -32,47 +44,43 @@ public class KrimProccedingsPage extends ParentPage{
     }
 
     @Step
-    public void chooseOffense(String status) {
-//        WebElement offenses = webDriver.findElement(By.id("tpBody_38"));
-//        List<WebElement> columns = offenses.findElements(By.tagName("td"));
-//        for (WebElement cell : columns) {
-//            if (cell.getText().equals(status)) {
-//                System.out.println(cell);
-//                cell.click();
-//                System.out.println(cell);
-//                Actions actions = new Actions(webDriver);
-//                actions.doubleClick(cell).build();
-//                actions.perform();
-////                try {
-////                    Thread.sleep(50);
-////                } catch (InterruptedException e) {
-////                    e.printStackTrace();
-////                }
-//                if(cell.isDisplayed()){
-//                    cell.click();
-//                    try {
-//                        Thread.sleep(150);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    cell.click();
-//                System.out.println(cell);
-
-//                break;
-//            }
-//        }
+    public void chooseOffense(String locator, String status) {
+        WebElement offenses = webDriver.findElement(By.id(locator));
+        List<WebElement> columns = offenses.findElements(By.tagName("td"));
+        for (WebElement cell : columns)
+            if (cell.getText().equals(status)) {
         Actions actions = new Actions(webDriver);
-        WebElement elementLocator = webDriver.findElement(By.xpath("/html/body/div[4]/table/tbody/tr[3]/td/div/table/tbody/tr/td[2]/div/table/tbody/tr[2]/td/div/table/tbody/tr[2]/td[2]"));
-        actions.doubleClick(elementLocator).perform();
-        if(elementLocator.isDisplayed()){
-            elementLocator.click();
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-            elementLocator.click();
-        System.out.println(elementLocator);
+        actions.doubleClick(cell).perform();
+        break;
+        }
+        logger.info("Offense was choosed");
     }
-}}
+
+    @Step
+    public void openNewRegKPD() {
+        try {
+            Thread.sleep(1000);
+            webDriver.findElement(By.id("a_21"));
+            System.out.println("нашел регистрация кп");
+//            actionsWithOurElements.dOM(regKPs);
+            actionsWithOurElements.clickOnElement(regKP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openUnregKP() {
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.clickOnElement(unregisteredOfensesS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void goToRegisterCriminalProceedings() {
+        actionsWithOurElements.clickOnElement(listKP);
+    }
+}
 

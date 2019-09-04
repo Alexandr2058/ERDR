@@ -44,6 +44,7 @@ public class kRCrome {
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         webDriver.get("https://erdr.gp.gov.ua/erdr/erdr.web.system.LoginPage.cls?AutoLogout=1");
+        webDriver.findElement(By.id("control_28")).click();
 
 
         System.out.println("Site was opened");
@@ -59,7 +60,7 @@ public class kRCrome {
         wait20.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='a_5']")));
         Thread.sleep(1000);
         webDriver.findElement(By.xpath(".//*[@id='a_5']")).click(); //button krim provadj
-        webDriver.findElement(By.xpath(".//*[@id='a_21']")).click();// registration pravoporushennya
+        webDriver.findElement(By.xpath(".//*[@id='a_23']")).click();// registration pravoporushennya
 
         try {
             Runtime.getRuntime().exec("C:\\Users\\achepik\\Desktop\\scroll.exe");
@@ -67,21 +68,25 @@ public class kRCrome {
             e.printStackTrace();
         }
 
+        Actions actions = new Actions(webDriver);
+        WebElement elementLocator = webDriver.findElement(By.xpath("/html/body/div[4]/table/tbody/tr[3]/td/div/table/tbody/tr/td[2]/div/table/tbody/tr[2]/td/div/table/tbody/tr[2]/td[2]"));
+        actions.doubleClick(elementLocator).perform();
+        System.out.println(elementLocator);
 //        webDriver.findElement(By.id("btn_100")).click();
 //        webDriver.findElement(By.xpath(".//*[@id='filter1_column1_14'']")).sendKeys("456465");
-        String parent = webDriver.getWindowHandle();
-        System.out.println("Parent window is " + parent);
-        Thread.sleep(1000);
-        webDriver.findElement(By.xpath(".//*[@id='btn_100']")).click();
-        Set<String> allWindows = webDriver.getWindowHandles();
-        int count = allWindows.size();
-        System.out.println("Total window " + count);
-        for (String child : allWindows) {
-            if (!parent.equalsIgnoreCase(child)) {
-                webDriver.switchTo().window(child);
-            }
-        }
-        webDriver.findElement(By.id("image_377")).click();
+//        String parent = webDriver.getWindowHandle();
+//        System.out.println("Parent window is " + parent);
+//        Thread.sleep(1000);
+//        webDriver.findElement(By.xpath(".//*[@id='btn_100']")).click();
+//        Set<String> allWindows = webDriver.getWindowHandles();
+//        int count = allWindows.size();
+//        System.out.println("Total window " + count);
+//        for (String child : allWindows) {
+//            if (!parent.equalsIgnoreCase(child)) {
+//                webDriver.switchTo().window(child);
+//            }
+//        }
+//        webDriver.findElement(By.id("image_377")).click();
 
 //        webDriver.findElement(By.id("zenLayoutTableCell_377")).click();
 //        webDriver.findElement(By.id("filter1_column1_14")).sendKeys("115");

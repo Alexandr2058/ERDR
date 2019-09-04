@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 //import org.apache.xpath.operations.String;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -77,7 +78,7 @@ public class ActionsWithOurElements {
         }
     }
 
-    public void selectDataInDD(String data) throws InterruptedException {
+    public void selectDataInDD(String data) {
         try {
             wait10.until(ExpectedConditions.elementToBeClickable(By.xpath(data)));
             Thread.sleep(1000);
@@ -178,6 +179,7 @@ public class ActionsWithOurElements {
                     System.out.println("catch");
                 }catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("no");
                 }
             }
         }
@@ -209,12 +211,10 @@ public class ActionsWithOurElements {
 //                    logger.info("" + cell.getText());
                     return true;
                 }
-//            }
             return false;
         }catch (Exception e) {
             Assert.fail("Offenses is not added");
             return false;
-//        }
         }
     }
 
@@ -288,7 +288,6 @@ public class ActionsWithOurElements {
                 webDriver.switchTo().window(childOne);
             }
         }
-
         try {
             webDriver.findElement(By.id(windowT)).click();
             logger.info("wot ono");
@@ -313,8 +312,8 @@ public class ActionsWithOurElements {
 
     public void downEnter() {
         try {
-            Thread.sleep(2000);
-            webDriver.findElement(By.id("zenModalDiv")).sendKeys(Keys.DOWN, Keys.ENTER);
+            Thread.sleep(3000);
+            webDriver.findElement(By.id("zenModalDiv")).sendKeys(Keys.DOWN, Keys.DOWN, Keys.ENTER);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -322,14 +321,12 @@ public class ActionsWithOurElements {
 
     public boolean compareWithDialogBox(String popupPass, String message) {
         try {
+            Thread.sleep(1000);
             String dialogBox = webDriver.findElement(By.id(popupPass)).getText();
             System.out.println(dialogBox);
-//            for (WebElement cell : column) {
             if (dialogBox.equals(message)) {
-//                    logger.info("" + cell.getText());
                 return true;
             }
-//            }
             return false;
         }catch (Exception e) {
             Assert.fail("Offenses is not added");
@@ -337,4 +334,71 @@ public class ActionsWithOurElements {
 //        }
         }
     }
+
+    public boolean compareChangedText(String locator, String enteredText) {
+        webDriver.findElement(By.id("control_59")).click();
+        try {
+            String changedText = webDriver.findElement(By.id(locator)).getAttribute("value");
+            System.out.println(changedText);
+            if (changedText.equals(enteredText)) {
+                return true;
+            }
+            return false;
+        }catch (Exception e){
+            Assert.fail("Offence is not changed");
+            return false;
+        }
+    }
+
+    public void popupMessage() {
+        webDriver.switchTo().alert().accept();
+    }
+
+    public void chooseOffense(String locator, String status) {
+        WebElement offenses = webDriver.findElement(By.id(locator));
+        List<WebElement> columns = offenses.findElements(By.tagName("td"));
+        for (WebElement cell : columns)
+            if (cell.getText().equals(status)) {
+                Actions actions = new Actions(webDriver);
+                actions.doubleClick(cell).perform();
+                break;
+            }
+        logger.info("Offense was choosed");
+    }
+
+    public void chooseOffParams (String locator, String status, String number) {
+        for (int i = 1; i < 20; i++) {
+            WebElement offenses = webDriver.findElement(By.id(locator));
+            List<WebElement> columns = offenses.findElements(By.xpath("/html/body/div[4]/table/tbody/tr[3]/td/div/table/tbody/tr/td[2]/div/table/tbody/tr[3]/td/div/table/tbody[2]/tr[" + i + "]/td[9]"));
+            for (WebElement cell : columns)
+                if (cell.getText().equals(status) || cell.getText().equals(number)) {
+                    Actions actions = new Actions(webDriver);
+                    actions.doubleClick(cell).perform();
+//                    break;
+                }
+            logger.info("Offense was choosed");
+        }
+    }
+
+
+    public boolean compareResultFiltr() {
+
+        try {
+            String variable = webDriver.findElement(By.id("control_38")).getAttribute("value");
+            System.out.println(variable);
+            for (int i = 1; i < 20; i++) {
+                WebElement offenses = webDriver.findElement(By.id("tr_0_237"));
+                List<WebElement> columns = offenses.findElements(By.xpath("/html/body/div[4]/table/tbody/tr[3]/td/div/table/tbody/tr/td[2]/div/table/tbody/tr[3]/td/div/table/tbody[2]/tr[" + i + "]/td[9]"));
+                for (WebElement cell : columns)
+                    if (cell.getText().equals(variable)) {
+                        return true;
+                    }/*logger.info("Offense was choosed");*/
+            }return true;
+        }catch (Exception e) {
+            Assert.fail("Filtr is not working");
+            return false;
+        }
+
+    }
+
 }

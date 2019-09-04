@@ -17,7 +17,7 @@ public class TemplatePage extends ParentPage {
     @Step
     public void krimProvTab() {
         WebDriverWait wait100;
-        wait100 = new WebDriverWait(webDriver, 100);
+        wait100 = new WebDriverWait(webDriver, 200);
         try {
             wait100.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='a_5']")));
             Thread.sleep(3000);

@@ -6,10 +6,13 @@ import libs.Utils;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.FindBy;
+
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Set;
 
 //kriminalne pravoporushennya page
 
@@ -135,7 +138,7 @@ public class KrimOffensePage extends ParentPage {
     @FindBy (id = "popup_container")
     private String dialog;
 
-    @FindBy (id = "item_0_100")
+    @FindBy (id = "item_1_100")
     private String ecoWindow;
 
     @FindBy (id = "icon_44")
@@ -150,7 +153,7 @@ public class KrimOffensePage extends ParentPage {
     @FindBy (id = "zenModalDiv")
     private String qualPlur;
 
-    @FindBy (id = "item_0_96")
+    @FindBy (id = "chbox_0_96")
     private WebElement qualPlurCrim;
 
     @FindBy (id = "zenlbl_100")
@@ -189,6 +192,69 @@ public class KrimOffensePage extends ParentPage {
     @FindBy (id = "control_44")
     private WebElement pastDateArea;
 
+    @FindBy (xpath = ".//*[@id='btn_29']")
+    private String but;
+
+    @FindBy (id = "btn_27")
+    private WebElement statement2;
+
+    @FindBy ( xpath = "//*[@id='zenlbl_92']")
+    private String noll;
+
+    @FindBy (id = "comboboxTable")
+    private String winWithPlCrim;
+
+    @FindBy (id = "image_389")
+    private WebElement butServ;
+
+    @FindBy (id = "th_column1_14")
+    private String codeServ;
+
+    @FindBy (id = "filter1_column1_14")
+    private WebElement codeField;
+
+    @FindBy (id = "input_400")
+    private String windowPP;
+
+    @FindBy (id = "textRadio_2_46")
+    private WebElement legalPers;
+
+    @FindBy (id = "control_73")
+    private WebElement nameLP;
+
+    @FindBy (id = "control_75")
+    private WebElement codeLP;
+
+    @FindBy (id = "control_77")
+    private WebElement legAddress;
+
+    @FindBy (id = "control_79")
+    private WebElement actAddress;
+
+    @FindBy (id = "caption_3_46")
+    private WebElement anothSource;
+
+    @FindBy (id = "image_371")
+    private WebElement anSourceBut;
+
+    @FindBy (id = "item_1_32")
+    private WebElement foreignCountries;
+
+    @FindBy (id = "control_42")
+    private String numField;
+
+    @FindBy (id = "control_363")
+    private WebElement regBut;
+
+    @FindBy (id = "control_363")
+    private String registr;
+
+    @FindBy (id = "zenBody")
+    private WebElement regf;
+
+    @FindBy (id = "group_1")
+    private String regS;
+
     public KrimOffensePage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -196,18 +262,18 @@ public class KrimOffensePage extends ParentPage {
     @Step
     public void selectKRODRInDD () {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             actionsWithOurElements.selectDataInDD(".//*[@id='btn_27']");
             actionsWithOurElements.selectDataInDD(".//*[@id='chbox_0_27']");
             logger.info("kerODR was selected");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        webDriver.findElement(By.id("input_27")).sendKeys(Keys.DOWN, Keys.ENTER);
     }
 
     @Step
     public void selectKerOP() {
-
         try {
             Thread.sleep(2000);
 //            actionsWithOurElements.windowSearch(".//*[@id='btn_1_16']");
@@ -218,6 +284,7 @@ public class KrimOffensePage extends ParentPage {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        webDriver.findElement(By.id("input_29")).sendKeys(Keys.DOWN, Keys.ENTER);
     }
 
     @Step
@@ -284,8 +351,19 @@ public class KrimOffensePage extends ParentPage {
     }
 
     @Step
-    public void enterAdress() {
-        actionsWithOurElements.enterTextIntoElement(adress, "Празька");
+    public void enterAdress(String adressa) {
+//        try {
+//            Thread.sleep(1000);
+//            actionsWithOurElements.windowSearch(".//*[@id='zenlbl_67']");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        try {
+            Thread.sleep(3000);
+            actionsWithOurElements.enterTextIntoElement(adress, adressa);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         logger.info("adress was added");
     }
 
@@ -293,7 +371,7 @@ public class KrimOffensePage extends ParentPage {
     public void offense() {
         actionsWithOurElements.enterTextIntoElement(dataOffense, "01.05.2000 01:00:00");
         logger.info("offense was entered");
-    }
+    }//Правопорушення учинено
 
     @Step
     public void personWhoCriminal()  {
@@ -332,15 +410,15 @@ public class KrimOffensePage extends ParentPage {
 
     @Step
     public void pluralQualCrime() {
-        actionsWithOurElements.clickOnElement(buttPlur);
         try {
             Thread.sleep(1000);
+            actionsWithOurElements.clickOnElement(buttPlur);
+            Thread.sleep(1000);
             actionsWithOurElements.clickOnElement(qualPlurCrim);
-        }catch (Exception e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        actionsWithOurElements.windowSearch(window);
-        actionsWithOurElements.clickOnElement(buttPlur);
+        webDriver.findElement(By.id("input_96")).sendKeys(Keys.ENTER);
     }
 
     @Step
@@ -362,8 +440,9 @@ public class KrimOffensePage extends ParentPage {
             actionsWithOurElements.clickOnElement(okno);
             webDriver.findElement(By.xpath(".//*[@id='btn_100']")).click();
             Thread.sleep(1000);
-//            actionsWithOurElements.chooseNewWindow(ecoWindow);
-            actionsWithOurElements.clickOnElement(envOffence);
+//            actionsWithOurElements.windowSearch(ecoWindow);
+//            actionsWithOurElements.clickOnElement(envOffence);
+            webDriver.findElement(By.id("input_100")).sendKeys(Keys.DOWN, Keys.DOWN, Keys.ENTER);
             logger.info("offenses was added");
         }catch (Exception e) {
             e.printStackTrace();
@@ -373,21 +452,43 @@ public class KrimOffensePage extends ParentPage {
 
     @Step
     public void offenseATO() {
+//        try {
+//            webDriver.findElement(By.xpath(".//*[@id='btn_102']")).click();
+////            webDriver.findElement(By.id("input_102")).sendKeys(Keys.DOWN, Keys.DOWN, Keys.ENTER);
+//            actionsWithOurElements.windowSearchs(noll);
+//            webDriver.findElement(By.id("item_2_102")).click();
+////            actionsWithOurElements.clickOnElement(offATO);
+////            Thread.sleep(1000);
+////            Actions gavno = new Actions(webDriver);
+////            gavno.moveToElement(offATO).click();
+//            logger.info("offence ATO was selected");
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
         try {
+            Thread.sleep(2000);
+            actionsWithOurElements.clickOnElement(okno);
             webDriver.findElement(By.xpath(".//*[@id='btn_102']")).click();
-            actionsWithOurElements.clickOnElement(offATO);
-            logger.info("offence ATO was selected");
+            Thread.sleep(1000);
+//            actionsWithOurElements.windowSearch(ecoWindow);
+//            actionsWithOurElements.clickOnElement(envOffence);
+            webDriver.findElement(By.id("input_102")).sendKeys(Keys.DOWN, Keys.DOWN, Keys.DOWN, Keys.ENTER);
+            logger.info("offenses was added");
         }catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Step
     public void tortureOfPersons() {
         try {
-            actionsWithOurElements.clickOnElement(tort);
-            actionsWithOurElements.clickOnElement(chooseTort);
+            Thread.sleep(2000);
+            actionsWithOurElements.clickOnElement(okno);
+            webDriver.findElement(By.xpath(".//*[@id='btn_104']")).click();
+            Thread.sleep(1000);
+//            actionsWithOurElements.clickOnElement(tort);
+//            actionsWithOurElements.clickOnElement(chooseTort);
+            webDriver.findElement(By.id("input_104")).sendKeys(Keys.DOWN, Keys.DOWN, Keys.DOWN, Keys.ENTER);
             logger.info("type torture of person was selected");
         }catch (Exception e) {
             e.printStackTrace();
@@ -408,13 +509,18 @@ public class KrimOffensePage extends ParentPage {
 
     @Step
     public void save() {
-        actionsWithOurElements.windowSearchs(exitTub);
-        actionsWithOurElements.clickOnElement(saveProv);
-//        try {
-//            actionsWithOurElements.clickOnElement(Ok);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(1000);
+//            actionsWithOurElements.windowSearchs(exitTub);
+            actionsWithOurElements.clickOnElement(saveProv);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            actionsWithOurElements.clickOnElement(Ok);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Step
@@ -446,9 +552,13 @@ public class KrimOffensePage extends ParentPage {
 
     @Step
     public void takeIntoAccount() {
-        actionsWithOurElements.clickOnElement(butKerOP);
+        try {
+            Thread.sleep(2000);
+            actionsWithOurElements.clickOnElement(butInto);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 //        actionsWithOurElements.windowSearch(intoArea);
-        actionsWithOurElements.clickOnElement(butInto);
         actionsWithOurElements.clickOnElement(pastYear);
 
     }
@@ -466,6 +576,146 @@ public class KrimOffensePage extends ParentPage {
     @Step
     public void enterDatePast() {
         actionsWithOurElements.enterTextIntoElement(pastDateArea, "01.06.2000");
+    }
+
+    @Step
+    public void detectByServ(String codServ) {
+        actionsWithOurElements.clickOnElement(butServ);
+        actionsWithOurElements.windowSearch(codeServ);
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.enterTextIntoElement(codeField, codServ);
+            webDriver.findElement(By.id("filter1_column1_14")).sendKeys(Keys.ENTER);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        actionsWithOurElements.clickOnElement(choose);
+        actionsWithOurElements.windowSearchs(windowPP);
+    }
+
+    @Step
+    public void selectLegPers() {
+        actionsWithOurElements.clickOnElement(legalPers);
+    }
+
+    @Step
+    public void enterNameLegPers() {
+        actionsWithOurElements.enterTextIntoElement(nameLP, "Роги та копита");
+    }
+
+    @Step
+    public void enterCodeLP() {
+        actionsWithOurElements.enterTextIntoElement(codeLP, "7873616315");
+    }
+
+    @Step
+    public void enterLegAddress() {
+        actionsWithOurElements.enterTextIntoElement(legAddress, "Печенізька");
+    }
+
+    @Step
+    public void actualAddress() {
+        actionsWithOurElements.enterTextIntoElement(actAddress, "Солом");
+    }
+
+    @Step
+    public void selectAnothSource() {
+        actionsWithOurElements.clickOnElement(anothSource);
+    }
+
+    @Step
+    public void valueAnotherSource(String codeSource) {
+        actionsWithOurElements.clickOnElement(anSourceBut);
+        actionsWithOurElements.windowSearch(codeServ);
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.enterTextIntoElement(codeField, codeSource);
+            webDriver.findElement(By.id("filter1_column1_14")).sendKeys(Keys.ENTER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        actionsWithOurElements.clickOnElement(choose);
+        actionsWithOurElements.windowSearchs(window);
+    }
+
+    @Step
+    public void takeIntoAccountID() {
+        try {
+            Thread.sleep(2000);
+            actionsWithOurElements.clickOnElement(butInto);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        actionsWithOurElements.clickOnElement(foreignCountries);
+    }
+
+    @Step
+    public void sendForRegistr() {
+        try {
+            Thread.sleep(3000);
+            actionsWithOurElements.windowSearchs(registr);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        actionsWithOurElements.clickOnElement(regBut);
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.clickOnElement(Ok);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void withdrawFromReg() {
+        try {
+            Thread.sleep(2000);
+            actionsWithOurElements.windowSearchs(registr);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        actionsWithOurElements.clickOnElement(regBut);
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.clickOnElement(Ok);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void enterNameDoup(String nameD) {
+        actionsWithOurElements.enterTextIntoElement(name, nameD);
+        logger.info("name was added");
+    }
+
+    @Step
+    public void saveD() {
+        try {
+            Thread.sleep(1000);
+            actionsWithOurElements.windowSearchs(exitTub);
+            actionsWithOurElements.clickOnElement(saveProv);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            actionsWithOurElements.clickOnElement(Ok);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        actionsWithOurElements.windowSearch(regS);
+//        actionsWithOurElements.clickOnElement(regf);
+    }
+
+    @Step
+    public void saveWOk() {
+        try {
+        Thread.sleep(1000);
+//            actionsWithOurElements.windowSearchs(exitTub);
+        actionsWithOurElements.clickOnElement(saveProv);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
     }
 }
 
